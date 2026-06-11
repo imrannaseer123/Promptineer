@@ -1,0 +1,102 @@
+{
+  "manifest_version": 3,
+  "name": "Promptineer - Engineer Better Prompts",
+  "short_name": "Promptineer",
+  "version": "1.0.0",
+  "description": "Manage, organize, and execute your AI prompts efficiently. Engineer better prompts with Promptineer.",
+  "homepage_url": "https://promptineer.com",
+
+  "icons": {
+    "16": "/icons/icon-16.png",
+    "32": "/icons/icon-32.png",
+    "48": "/icons/icon-48.png",
+    "128": "/icons/icon-128.png",
+    "256": "/icons/icon-256.png"
+  },
+
+  "permissions": [
+    "storage",
+    "scripting",
+    "activeTab",
+    "clipboardWrite",
+    "clipboardRead"
+  ],
+
+  "host_permissions": [
+    "https://*",
+    "http://*"
+  ],
+
+  "background": {
+    "service_worker": "/src/background/service-worker.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/icons/icon-16.png",
+      "32": "/icons/icon-32.png",
+      "48": "/icons/icon-48.png",
+      "128": "/icons/icon-128.png"
+    },
+    "default_title": "Promptineer - Engineer Better Prompts"
+  },
+
+  "options_page": "options.html",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ],
+      "js": [
+        "/src/content-script.js"
+      ],
+      "css": [
+        "/src/styles/content-script.css"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "/fonts/*",
+        "/icons/*"
+      ],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ]
+    }
+  ],
+
+  "commands": {
+    "open_popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      },
+      "description": "Open Promptineer popup"
+    },
+    "quick_execute": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Alt+E",
+        "mac": "Command+Shift+Alt+E"
+      },
+      "description": "Quick execute last prompt"
+    }
+  },
+
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_title": "Promptineer"
+  }
+}
