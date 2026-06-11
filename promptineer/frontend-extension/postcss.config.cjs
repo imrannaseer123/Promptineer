@@ -1,4 +1,4 @@
-/**
+﻿/**
  * PostCSS Configuration for Promptineer Extension
  * 
  * PostCSS is a JavaScript tool that transforms CSS using plugins
@@ -24,3 +24,4 @@ module.exports = {
     autoprefixer: {},
   },
 };
+

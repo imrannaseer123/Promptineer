@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import webExtension from 'vite-plugin-web-extension';
 import path from 'path';
 
 /**
@@ -37,17 +36,6 @@ export default defineConfig(() => {
       react({
         fastRefresh: isDev,
         jsxRuntime: 'automatic',
-      }),
-
-      /**
-       * Web Extension plugin for Chrome Extension support
-       * Handles manifest and multi-entry point builds
-       */
-      webExtension({
-        manifest: 'public/manifest.json',
-        contentScripts: {
-          // Define content scripts here if needed in future
-        },
       }),
     ],
 
@@ -101,6 +89,10 @@ export default defineConfig(() => {
        * Rollup options for build optimization
        */
       rollupOptions: {
+        input: {
+          popup: path.resolve(__dirname, 'public/popup.html'),
+          options: path.resolve(__dirname, 'public/options.html'),
+        },
         output: {
           /**
            * Code splitting strategy
@@ -117,16 +109,16 @@ export default defineConfig(() => {
       /**
        * Minification for production
        */
-      minify: isProd ? 'terser' : false,
+      minify: isProd ? 'esbuild' : false,
 
       /**
-       * Terser minification options
+       * Terser minification options (commented - using esbuild instead)
        */
-      terserOptions: {
-        compress: {
-          drop_console: isProd,
-        },
-      },
+      // terserOptions: {
+      //   compress: {
+      //     drop_console: isProd,
+      //   },
+      // },
 
       /**
        * Source maps for debugging
@@ -171,14 +163,8 @@ export default defineConfig(() => {
      */
     css: {
       /**
-       * PostCSS plugins for Tailwind
+       * PostCSS configuration is handled in postcss.config.cjs
        */
-      postcss: {
-        plugins: [
-          require('tailwindcss'),
-          require('autoprefixer'),
-        ],
-      },
 
       /**
        * CSS preprocessor options

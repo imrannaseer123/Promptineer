@@ -262,10 +262,7 @@ module.exports = {
    * Plugins configuration
    */
   plugins: [
-    /**
-     * Plugin for form element styling
-     */
-    require('@tailwindcss/forms'),
+    // Form styling is handled through custom CSS in globals.css
   ],
 
   /**
