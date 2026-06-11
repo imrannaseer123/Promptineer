@@ -94,14 +94,12 @@ export default defineConfig(() => {
           options: path.resolve(__dirname, 'public/options.html'),
         },
         output: {
-          /**
-           * Code splitting strategy
-           */
-          manualChunks: {
-            // Vendor chunks to optimize loading
-            'react-vendor': ['react', 'react-dom'],
-            'state-vendor': ['zustand'],
-            'http-vendor': ['axios'],
+          manualChunks: id => {
+            if (id.includes('node_modules')) {
+              if (id.includes('react') || id.includes('react-dom')) return 'react-vendor';
+              if (id.includes('zustand')) return 'state-vendor';
+              if (id.includes('axios')) return 'http-vendor';
+            }
           },
         },
       },
